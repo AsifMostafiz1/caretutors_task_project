@@ -6,9 +6,10 @@ import '../repository/dashboard_repository_impl.dart';
 class DashboardBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DashboardRepository>(() => DashboardRepositoryImpl());
+    Get.lazyPut<DashboardRepository>(() => DashboardRepositoryImpl(), fenix: true);
     Get.lazyPut<DashboardController>(
       () => DashboardController(repository: Get.find<DashboardRepository>()),
+      fenix: true,
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:demo_project/presentation/splash/view/splash_screen.dart';
+import 'package:demo_project/routes/app_router.dart';
 import 'package:demo_project/utils/app_constant.dart';
 import 'package:demo_project/utils/app_theme.dart';
 import 'package:demo_project/common/binding/initial_binding.dart';
@@ -14,6 +13,7 @@ void main() async {
     debugPrint("Firebase initialization failed: $e");
   }
 
+  InitialBinding().dependencies();
   runApp(const MyApp());
 }
 
@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp.router(
       title: AppConstant.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      initialBinding: InitialBinding(),
-      home: const SplashScreen(),
+      scaffoldMessengerKey: AppRouter.scaffoldMessengerKey,
+      routerConfig: AppRouter.router,
     );
   }
 }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../view/sign_in_screen.dart';
-import '../../dashboard/view/dashboard_screen.dart';
-import '../../dashboard/binding/dashboard_binding.dart';
+import 'package:demo_project/routes/app_router.dart';
 import '../../../utils/app_constant.dart';
 import '../model/user_model.dart';
 import '../../../common/widgets/custom_snackbar.dart';
 import '../../../utils/app_enums.dart';
 import '../repository/auth_repository.dart';
-import '../binding/auth_binding.dart';
+import '../../dashboard/controller/dashboard_controller.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepository repository;
@@ -89,7 +87,7 @@ class AuthController extends GetxController implements GetxService {
       CustomSnackbar.show(
           type: SnackbarType.success, message: 'Account created successfully');
 
-      Get.offAll(() => const DashboardScreen(), binding: DashboardBinding());
+      AppRouter.router.go(AppRoutes.dashboard);
     } catch (e) {
       isLoading = false;
       update();
@@ -131,7 +129,7 @@ class AuthController extends GetxController implements GetxService {
           update();
           CustomSnackbar.show(
               type: SnackbarType.success, message: 'Login successful');
-          Get.offAll(() => const DashboardScreen(), binding: DashboardBinding());
+          AppRouter.router.go(AppRoutes.dashboard);
         } else {
           isLoading = false;
           update();
@@ -155,8 +153,16 @@ class AuthController extends GetxController implements GetxService {
   Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    Get.deleteAll(force: true);
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    isLoading = false;
+    isPasswordVisible = false;
 
-    Get.offAll(() => const SignInScreen(), binding: AuthBinding());
+    if (Get.isRegistered<DashboardController>()) {
+      Get.delete<DashboardController>(force: true);
+    }
+
+    AppRouter.router.go(AppRoutes.signIn);
   }
 }

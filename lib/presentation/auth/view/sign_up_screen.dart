@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import '../../../common/widgets/custom_app_bar.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
@@ -62,7 +63,7 @@ class SignUpScreen extends GetView<AuthController> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    Get.back();
+                    context.pop();
                   },
                   child: RichText(
                     text: TextSpan(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:demo_project/routes/app_router.dart';
 import '../../../common/widgets/custom_app_bar.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_text_field.dart';
 import '../controller/auth_controller.dart';
-import 'sign_up_screen.dart';
-import '../binding/auth_binding.dart';
 
 class SignInScreen extends GetView<AuthController> {
   const SignInScreen({super.key});
@@ -63,9 +63,7 @@ class SignInScreen extends GetView<AuthController> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    Get.to(() => const SignUpScreen(),
-                        transition: Transition.rightToLeft,
-                        binding: AuthBinding());
+                    context.push(AppRoutes.signUp);
                   },
                   child: RichText(
                     text: TextSpan(

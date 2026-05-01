@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:demo_project/routes/app_router.dart';
 import '../../utils/app_enums.dart';
 
 class CustomSnackbar {
@@ -34,17 +34,35 @@ class CustomSnackbar {
         break;
     }
 
-    Get.snackbar(
-      defaultTitle,
-      message,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: backgroundColor,
-      colorText: Colors.white,
-      margin: const EdgeInsets.all(16),
-      borderRadius: 12,
-      icon: Icon(iconData, color: Colors.white),
-      duration: const Duration(seconds: 3),
-      snackStyle: SnackStyle.FLOATING,
-    );
+    final messengerState = AppRouter.scaffoldMessengerKey.currentState;
+    if (messengerState == null) {
+      return;
+    }
+
+    messengerState
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: backgroundColor,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          duration: const Duration(seconds: 3),
+          content: Row(
+            children: [
+              Icon(iconData, color: Colors.white),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  '$defaultTitle: $message',
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }

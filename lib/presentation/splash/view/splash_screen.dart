@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:demo_project/presentation/auth/view/sign_in_screen.dart';
-import 'package:demo_project/presentation/dashboard/binding/dashboard_binding.dart';
-import 'package:demo_project/presentation/dashboard/view/dashboard_screen.dart';
+import 'package:demo_project/routes/app_router.dart';
 import 'package:demo_project/utils/app_constant.dart';
 import 'package:demo_project/utils/images.dart';
 
@@ -30,11 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!mounted) return;
 
     if (isLoggedIn) {
-      Get.offAll(() => const DashboardScreen(), binding: DashboardBinding());
+      context.go(AppRoutes.dashboard);
       return;
     }
 
-    Get.offAll(() => const SignInScreen());
+    context.go(AppRoutes.signIn);
   }
 
   @override
@@ -74,10 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 Text(
                   AppConstant.appName,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.2,
-                      ),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700, letterSpacing: 0.2),
                 ),
               ],
             ),
