@@ -26,12 +26,12 @@ class SignInScreen extends GetView<AuthController> {
             children: [
               const SizedBox(height: 8),
               TextFormField(
-                controller: controller.phoneController,
-                keyboardType: TextInputType.phone,
+                controller: controller.emailController,
+                keyboardType: TextInputType.emailAddress,
                 style: const TextStyle(fontSize: 14),
                 decoration: const InputDecoration(
-                  hintText: 'Phone Number',
-                  prefixIcon: Icon(Icons.phone_outlined, size: 20),
+                  hintText: 'Email Address',
+                  prefixIcon: Icon(Icons.email_outlined, size: 20),
                 ),
               ),
               const SizedBox(height: 20),

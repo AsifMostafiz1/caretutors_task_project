@@ -16,7 +16,7 @@ class AuthController extends GetxController implements GetxService {
   AuthController({required this.repository});
 
   final nameController = TextEditingController();
-  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   bool isLoading = false;
@@ -30,19 +30,29 @@ class AuthController extends GetxController implements GetxService {
   @override
   void onClose() {
     nameController.dispose();
-    phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }
 
+  bool _isValidEmail(String email) {
+    return GetUtils.isEmail(email);
+  }
+
   Future<void> signUp() async {
     String name = nameController.text.trim();
-    String phone = phoneController.text.trim();
+    String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    if (name.isEmpty || phone.isEmpty || password.isEmpty) {
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
       CustomSnackbar.show(
           type: SnackbarType.error, message: 'Please fill all fields');
+      return;
+    }
+
+    if (!_isValidEmail(email)) {
+      CustomSnackbar.show(
+          type: SnackbarType.error, message: 'Please enter a valid email address');
       return;
     }
 
@@ -50,19 +60,19 @@ class AuthController extends GetxController implements GetxService {
       isLoading = true;
       update();
 
-      bool exists = await repository.checkUserExists(phone);
+      bool exists = await repository.checkUserExists(email);
       if (exists) {
         isLoading = false;
         update();
         CustomSnackbar.show(
             type: SnackbarType.error,
-            message: 'User with this phone number already exists');
+            message: 'User with this email address already exists');
         return;
       }
 
       UserModel newUser = UserModel(
         name: name,
-        phone: phone,
+        email: email,
         password: password,
       );
 
@@ -70,7 +80,7 @@ class AuthController extends GetxController implements GetxService {
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(AppConstant.keyIsLoggedIn, true);
-      await prefs.setString(AppConstant.keyUserPhone, phone);
+      await prefs.setString(AppConstant.keyUserEmail, email);
       await prefs.setString(AppConstant.keyUserName, name);
 
       isLoading = false;
@@ -88,12 +98,18 @@ class AuthController extends GetxController implements GetxService {
   }
 
   Future<void> signIn() async {
-    String phone = phoneController.text.trim();
+    String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    if (phone.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       CustomSnackbar.show(
           type: SnackbarType.error, message: 'Please fill all fields');
+      return;
+    }
+
+    if (!_isValidEmail(email)) {
+      CustomSnackbar.show(
+          type: SnackbarType.error, message: 'Please enter a valid email address');
       return;
     }
 
@@ -101,13 +117,13 @@ class AuthController extends GetxController implements GetxService {
       isLoading = true;
       update();
 
-      UserModel? user = await repository.signIn(phone);
+      UserModel? user = await repository.signIn(email);
 
       if (user != null) {
         if (user.password == password) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool(AppConstant.keyIsLoggedIn, true);
-          await prefs.setString(AppConstant.keyUserPhone, user.phone);
+          await prefs.setString(AppConstant.keyUserEmail, user.email);
           await prefs.setString(AppConstant.keyUserName, user.name);
 
           isLoading = false;

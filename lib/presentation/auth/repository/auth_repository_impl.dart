@@ -7,22 +7,22 @@ class AuthRepositoryImpl implements AuthRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<bool> checkUserExists(String phone) async {
-    DocumentSnapshot userDoc = await _firestore.collection(AppConstant.collectionUsers).doc(phone).get();
+  Future<bool> checkUserExists(String email) async {
+    DocumentSnapshot userDoc = await _firestore.collection(AppConstant.collectionUsers).doc(email).get();
     return userDoc.exists;
   }
    
   @override
   Future<void> signUp(UserModel user) async {
-    await _firestore.collection(AppConstant.collectionUsers).doc(user.phone).set({
+    await _firestore.collection(AppConstant.collectionUsers).doc(user.email).set({
       ...user.toMap(),
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
 
   @override
-  Future<UserModel?> signIn(String phone) async {
-    DocumentSnapshot doc = await _firestore.collection(AppConstant.collectionUsers).doc(phone).get();
+  Future<UserModel?> signIn(String email) async {
+    DocumentSnapshot doc = await _firestore.collection(AppConstant.collectionUsers).doc(email).get();
     if (doc.exists) {
       var data = doc.data() as Map<String, dynamic>;
       return UserModel.fromMap(data);

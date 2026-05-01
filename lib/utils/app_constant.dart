@@ -1,7 +1,7 @@
 class AppConstant {
   // Shared Preferences Keys
   static const String keyIsLoggedIn = 'isLoggedIn';
-  static const String keyUserPhone = 'userPhone';
+  static const String keyUserEmail = 'userEmail';
   static const String keyUserName = 'userName';
 
   // Firestore Collection Names
