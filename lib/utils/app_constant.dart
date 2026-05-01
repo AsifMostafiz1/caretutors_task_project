@@ -1,4 +1,7 @@
 class AppConstant {
+  static const String appName = 'Note Tracker';
+  static const Duration splashDuration = Duration(seconds: 2);
+
   // Shared Preferences Keys
   static const String keyIsLoggedIn = 'isLoggedIn';
   static const String keyUserEmail = 'userEmail';
@@ -7,5 +10,4 @@ class AppConstant {
   // Firestore Collection Names
   static const String collectionUsers = 'users-note-tracker';
   static const String collectionNotes = 'note-tracker';
-
 }
