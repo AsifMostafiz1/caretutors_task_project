@@ -63,7 +63,12 @@ class DashboardController extends GetxController implements GetxService {
     _notesSubscription?.cancel();
     _notesSubscription = repository.getNotes(userEmail).listen(
       (fetchedNotes) {
-        notes ..clear()..addAll(fetchedNotes);
+        final List<NoteModel> sortedNotes = List<NoteModel>.from(fetchedNotes)
+          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+        notes
+          ..clear()
+          ..addAll(sortedNotes);
         isNotesLoading = false;
         update();
       },
@@ -137,11 +142,17 @@ class DashboardController extends GetxController implements GetxService {
 
   Map<String, List<NoteModel>> get groupedNotes {
     final Map<String, List<NoteModel>> grouped = <String, List<NoteModel>>{};
+    final List<NoteModel> sortedNotes = List<NoteModel>.from(notes)
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    for (final NoteModel note in notes) {
+    for (final NoteModel note in sortedNotes) {
       final String key = formatGroupDate(note.createdAt);
       grouped.putIfAbsent(key, () => <NoteModel>[]);
       grouped[key]!.add(note);
+    }
+
+    for (final List<NoteModel> noteList in grouped.values) {
+      noteList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     }
 
     return grouped;
