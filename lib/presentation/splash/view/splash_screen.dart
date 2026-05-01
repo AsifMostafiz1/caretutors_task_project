@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _handleNavigation() async {
-    await Future.delayed(AppConstant.splashDuration);
+    await Future.delayed(const Duration(seconds: 1));
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool isLoggedIn = prefs.getBool(AppConstant.keyIsLoggedIn) ?? false;

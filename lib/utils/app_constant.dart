@@ -11,4 +11,6 @@ class AppConstant {
   static const String collectionUsers = 'users-note-tracker';
   static const String collectionNotes = 'note-tracker';
 
+  static const double splashDuration = 1;
+
 }
