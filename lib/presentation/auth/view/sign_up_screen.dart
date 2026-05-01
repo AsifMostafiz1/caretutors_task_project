@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/widgets/custom_app_bar.dart';
 import '../../../common/widgets/custom_button.dart';
+import '../../../common/widgets/custom_text_field.dart';
 import '../controller/auth_controller.dart';
 
 class SignUpScreen extends GetView<AuthController> {
@@ -22,42 +23,30 @@ class SignUpScreen extends GetView<AuthController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 8),
-              TextFormField(
+              CustomTextField(
                 controller: controller.nameController,
-                style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(
-                  hintText: 'Full Name',
-                  prefixIcon: Icon(Icons.person_outline, size: 20),
-                ),
+                textInputAction: TextInputAction.next,
+                hintText: 'Full Name',
+                prefixIcon: const Icon(Icons.person_outline, size: 20),
               ),
               const SizedBox(height: 20),
-              TextFormField(
+              CustomTextField(
                 controller: controller.emailController,
+                textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
-                style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(
-                  hintText: 'Email Address',
-                  prefixIcon: Icon(Icons.email_outlined, size: 20),
-                ),
+                hintText: 'Email Address',
+                prefixIcon: const Icon(Icons.email_outlined, size: 20),
               ),
               const SizedBox(height: 20),
               GetBuilder<AuthController>(
-                builder: (controller) => TextFormField(
+                builder: (controller) => CustomTextField(
                   controller: controller.passwordController,
                   obscureText: !controller.isPasswordVisible,
-                  style: const TextStyle(fontSize: 14),
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    prefixIcon: const Icon(Icons.lock_outline, size: 20),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        controller.isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        size: 20,
-                      ),
-                      onPressed: controller.togglePasswordVisibility,
-                    ),
+                  hintText: 'Password',
+                  prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                  suffixIcon: IconButton(
+                    icon: Icon(controller.isPasswordVisible ? Icons.visibility : Icons.visibility_off, size: 20),
+                    onPressed: controller.togglePasswordVisibility,
                   ),
                 ),
               ),

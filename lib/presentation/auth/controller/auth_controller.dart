@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../view/sign_in_screen.dart';
 import '../../dashboard/view/dashboard_screen.dart';
+import '../../dashboard/binding/dashboard_binding.dart';
 import '../../../utils/app_constant.dart';
 import '../model/user_model.dart';
 import '../../../common/widgets/custom_snackbar.dart';
@@ -88,7 +89,7 @@ class AuthController extends GetxController implements GetxService {
       CustomSnackbar.show(
           type: SnackbarType.success, message: 'Account created successfully');
 
-      Get.offAll(() => const DashboardScreen());
+      Get.offAll(() => const DashboardScreen(), binding: DashboardBinding());
     } catch (e) {
       isLoading = false;
       update();
@@ -130,7 +131,7 @@ class AuthController extends GetxController implements GetxService {
           update();
           CustomSnackbar.show(
               type: SnackbarType.success, message: 'Login successful');
-          Get.offAll(() => const DashboardScreen());
+          Get.offAll(() => const DashboardScreen(), binding: DashboardBinding());
         } else {
           isLoading = false;
           update();

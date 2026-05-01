@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.automaticallyImplyLeading = true,
     this.backgroundColor,
     this.foregroundColor,
-    this.elevation = 0,
+    this.elevation = 3,
     this.bottom,
     this.toolbarHeight,
   });
@@ -46,7 +46,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor ?? theme.scaffoldBackgroundColor,
       foregroundColor: foregroundColor ?? theme.colorScheme.onSurface,
       elevation: elevation,
-      scrolledUnderElevation: 0,
+      shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.16),
+      surfaceTintColor: theme.scaffoldBackgroundColor,
+      scrolledUnderElevation: elevation + 1,
       toolbarHeight: toolbarHeight ?? (subtitle == null ? kToolbarHeight : 84),
       titleSpacing: centerTitle ? null : 24,
       title: Column(
