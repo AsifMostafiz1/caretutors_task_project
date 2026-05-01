@@ -1,4 +1,4 @@
-package com.mostafizur.expense.tracker
+package com.example.note.tracker
 
 import io.flutter.embedding.android.FlutterActivity
 

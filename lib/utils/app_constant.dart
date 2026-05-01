@@ -5,7 +5,7 @@ class AppConstant {
   static const String keyUserName = 'userName';
 
   // Firestore Collection Names
-  static const String collectionUsers = 'users';
-  static const String collectionMeals = 'meals';
-  static const String collectionExpenses = 'expenses';
+  static const String collectionUsers = 'users-note-tracker';
+  static const String collectionNotes = 'note-tracker';
+
 }
