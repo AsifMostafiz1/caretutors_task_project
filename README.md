@@ -7,17 +7,11 @@ The app lets a user sign up, sign in, stay logged in across launches, and create
 
 ## Screenshots
 
-### Splash / Auth
-
-![Screenshot 1](assets/images/Screenshot_1.png)
-
-### Sign Up
-
-![Screenshot 2](assets/images/Screenshot_2.png)
-
-### Dashboard
-
-![Screenshot 3](assets/images/Screenshot_3.png)
+<p align="center">
+  <img src="assets/images/Screenshot_1.png" alt="Screenshot 1" width="30%" />
+  <img src="assets/images/Screenshot_2.png" alt="Screenshot 2" width="30%" />
+  <img src="assets/images/Screenshot_3.png" alt="Screenshot 3" width="30%" />
+</p>
 
 
 ## Features
